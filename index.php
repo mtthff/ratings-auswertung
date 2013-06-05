@@ -1,3 +1,48 @@
+<?php
+    require_once 'config.php';
+    
+    try {
+        $DBH= new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpw);
+        $DBH->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);// ::TODO:: change it befor productive
+        $STH = $DBH->query('SELECT a.id,
+                                status_id,
+                                strftime("%d.%m.%Y", a.datetime) AS day,
+                                strftime("%H:%M", a.datetime) AS time,
+                                cu.organisation,
+                                cu.contact,
+                                cu.phone,
+                                a.number,
+                                a.comment,
+                                a.type_id,
+                                a.age,
+                                at.label AS labeltarif,
+                                a.juhe,
+                                av.label AS labelversion,
+                                a.fotocd,
+                                co.name,
+                                strftime("%d.%m.%Y", a.listed_date) AS listed_date
+                            FROM appointment AS a
+                            LEFT JOIN customer AS cu ON (a.customer_id = cu.id)
+                            LEFT JOIN contributor AS co ON (a.contributor_id = co.id)
+                            LEFT JOIN appointment_version AS av ON (a.version_id = av.id)
+                            LEFT JOIN appointment_tarif AS at ON (a.tarif_id = at.id)
+                            ORDER BY a.datetime ASC');
+
+        $STH->setFetchMode(PDO::FETCH_ASSOC);
+        while($row = $STH->fetch()){
+            $app[]= $row;
+        }
+    //    echo "<pre>";
+    //    print_r($app);
+    //    exit;
+        
+    }
+    catch(PDOException $e) 
+    {
+        echo $e->getMessage();
+    }
+    
+?>
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -35,13 +80,13 @@
             <span class="icon-bar"></span>
           </button>
 
-          <a class="brand" href="index.html">Titel</a>
+          <a class="brand" href="index.php">tt_ranking Auswertung</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="index.html">Home</a></li>
+              <li class="active"><a href="index.php">Home</a></li>
               <li><a href="#">Seite 1</a></li>
               <li><a href="#">Seite 2</a></li>
-              <li><a href="about.html">About</a></li>			  
+              <li><a href="about.php">About</a></li>			  
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -52,9 +97,9 @@
 
       <!-- Oberste marketing Botschaft -->
       <div class="hero-unit">
-        <h1>Überschrift <small> sonstiger Titel</small></h1>
-        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>
-        <p><a href="#" class="btn btn-primary btn-large">weiterlesen &raquo;</a></p>
+        <h1>Auswertung <small> Rankings</small></h1>
+<!--        <p></p>
+        <p><a href="#" class="btn btn-primary btn-large">weiterlesen &raquo;</a></p>-->
 
       </div>
 
@@ -62,9 +107,9 @@
       <div class="row">
         <div class="span8">
           <h2>Heading</h2>
-        <a href="#">
-			<img src="http://placehold.it/120x120" style="float:left; padding-right: 10px" class="img-rounded"/>
-		</a>  
+            <a href="#">
+                <img src="http://placehold.it/120x120" style="float:left; padding-right: 10px" class="img-rounded"/>
+            </a>  
 		<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
           <p><a class="btn" href="#">weiterlesen &raquo;</a></p>
         </div>
@@ -79,7 +124,7 @@
       <hr>
 
       <footer>
-        <p>&copy; mtthff 2013</p>
+          <p><?php echo date("d.m.Y")?></p>
       </footer>
 
     </div> <!-- /container -->

@@ -34,13 +34,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Titel</a>
+          <a class="brand" href="#">tt_ranking Auswertung</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="index.php">Home</a></li>
               <li><a href="#">Seite 1</a></li>
               <li><a href="#">Seite 2</a></li>
-              <li><a href="about.html">About</a></li>			  
+              <li class="active"><a href="about.php">About</a></li>			  
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -73,7 +73,7 @@
       <hr>
 
       <footer>
-        <p>&copy; mtthff 2013</p>
+          <p><?php echo date("d.m.Y")?></p>
       </footer>
 
     </div> <!-- /container -->
