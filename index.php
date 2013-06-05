@@ -2,7 +2,7 @@
     require_once 'config.php';
     
     try {
-        $DBH= new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpw);
+        $DBH= new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPW);
         $DBH->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);// ::TODO:: change it befor productive
         $STH = $DBH->query('SELECT a.id,
                                 status_id,
