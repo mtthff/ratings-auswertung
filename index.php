@@ -4,37 +4,25 @@
     try {
         $DBH= new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPW);
         $DBH->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);// ::TODO:: change it befor productive
-        $STH = $DBH->query('SELECT a.id,
-                                status_id,
-                                strftime("%d.%m.%Y", a.datetime) AS day,
-                                strftime("%H:%M", a.datetime) AS time,
-                                cu.organisation,
-                                cu.contact,
-                                cu.phone,
-                                a.number,
-                                a.comment,
-                                a.type_id,
-                                a.age,
-                                at.label AS labeltarif,
-                                a.juhe,
-                                av.label AS labelversion,
-                                a.fotocd,
-                                co.name,
-                                strftime("%d.%m.%Y", a.listed_date) AS listed_date
-                            FROM appointment AS a
-                            LEFT JOIN customer AS cu ON (a.customer_id = cu.id)
-                            LEFT JOIN contributor AS co ON (a.contributor_id = co.id)
-                            LEFT JOIN appointment_version AS av ON (a.version_id = av.id)
-                            LEFT JOIN appointment_tarif AS at ON (a.tarif_id = at.id)
-                            ORDER BY a.datetime ASC');
+        $STH = $DBH->query('SELECT p.title, r.rating, r.vote_count, DATE_FORMAT(FROM_UNIXTIME(r.tstamp), "%d.%m.%Y %H:%i") AS last_klick
+                            FROM tx_ratings_data AS r
+                            LEFT JOIN pages AS p ON (SUBSTR(r.reference,7) = p.uid)
+                            ORDER BY r.tstamp DESC');
 
         $STH->setFetchMode(PDO::FETCH_ASSOC);
         while($row = $STH->fetch()){
-            $app[]= $row;
+            $ratings[]= $row;
         }
-    //    echo "<pre>";
-    //    print_r($app);
-    //    exit;
+        /*            
+            [title] => Ausbildung & Studium finanzieren
+            [rating] => 3
+            [vote_count] => 1
+            [last_klick] => 05.06.2013 15:04
+         */
+        
+//        echo "<pre>";
+//        print_r($app);
+//        exit;
         
     }
     catch(PDOException $e) 
@@ -47,7 +35,7 @@
 <html lang="de">
   <head>
     <meta charset="utf-8">
-    <title>tt-ranking Auswertung</title>
+    <title>tt-ratings Auswertung</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Matthias Hoffmann">
@@ -80,7 +68,7 @@
             <span class="icon-bar"></span>
           </button>
 
-          <a class="brand" href="index.php">tt_ranking Auswertung</a>
+          <a class="brand" href="index.php">tt_rattings Auswertung</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="index.php">Home</a></li>
@@ -97,7 +85,7 @@
 
       <!-- Oberste marketing Botschaft -->
       <div class="hero-unit">
-        <h1>Auswertung <small> Rankings</small></h1>
+        <h1>Auswertung <small> tt_rattings</small></h1>
 <!--        <p></p>
         <p><a href="#" class="btn btn-primary btn-large">weiterlesen &raquo;</a></p>-->
 
@@ -105,20 +93,49 @@
 
       <!-- Example row of columns -->
       <div class="row">
-        <div class="span8">
+          <div class="span8">
+              <table class="table">
+                  <thead>
+                      <th>Seitentitel</th>
+                      <th>Durschnitt</th>
+                      <th>Gesamtratings</th>
+                      <th>Letztes rating</th>
+                  </thead>
+                  <tbody>
+              <?php
+              /*
+               *             [title] => Ausbildung & Studium finanzieren
+                            [rating] => 3
+                            [vote_count] => 1
+                            [last_klick] => 05.06.2013 15:04
+               */
+              foreach ($ratings as $value) {
+                  echo '<tr>';
+                  echo '<td>'.$value['title'].'</td>';
+                  echo '<td>'.$value['rating']/$value['vote_count'].'</td>';
+                  echo '<td>'.$value['vote_count'].'</td>';
+                  echo '<td>'.$value['last_klick'].'</td>';
+                  echo '<tr>';
+              }
+              ?>
+                  </tbody>
+              </table>
+          </div>
+          
+<!--        <div class="span8">
           <h2>Heading</h2>
             <a href="#">
                 <img src="http://placehold.it/120x120" style="float:left; padding-right: 10px" class="img-rounded"/>
             </a>  
-		<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+		<p></p>
           <p><a class="btn" href="#">weiterlesen &raquo;</a></p>
         </div>
 
         <div class="span4">
           <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p></p>
           <p><a class="btn" href="#">weiterlesen &raquo;</a></p>
-        </div>
+        </div>-->
       </div>
 
       <hr>
