@@ -7,7 +7,7 @@
         $STH = $DBH->query('SELECT SUBSTR(r.reference,7) AS id, p.title, r.rating, r.vote_count, DATE_FORMAT(FROM_UNIXTIME(r.tstamp), "%d.%m.%Y %H:%i") AS last_klick
                             FROM tx_ratings_data AS r
                             LEFT JOIN pages AS p ON (SUBSTR(r.reference,7) = p.uid)
-                            ORDER BY r.rating/r.vote_count DESC');
+                            ORDER BY r.vote_count DESC');
 
         $STH->setFetchMode(PDO::FETCH_ASSOC);
         while($row = $STH->fetch()){
@@ -72,8 +72,8 @@
 
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="index.php">Qualitativ</a></li>
-              <li><a href="quantit.php">Quantitativ</a></li>
+              <li><a href="index.php">Qualitativ</a></li>
+              <li class="active"><a href="#">Quantitativ</a></li>
               <li><a href="zeitlich.php">Zeitlich</a></li>
               <!--<li><a href="about.php">About</a></li>-->			  
             </ul>
@@ -86,7 +86,7 @@
 
       <!-- Oberste marketing Botschaft -->
       <div class="page-header">
-        <h3>Auswertung - qualitativ</h3>
+        <h3>Auswertung - quantitativ</h3>
 <!--        <p></p>
         <p><a href="#" class="btn btn-primary btn-large">weiterlesen &raquo;</a></p>-->
 

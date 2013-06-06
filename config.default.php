@@ -3,4 +3,6 @@
     define(DBNAME, "");
     define(DBUSER, "");
     define(DBPW, "");
+    
+    define(WEBSITE, '');
 ?>
