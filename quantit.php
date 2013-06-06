@@ -14,16 +14,13 @@
             $ratings[]= $row;
         }
         /*            
-            [title] => Ausbildung & Studium finanzieren
-            [rating] => 3
-            [vote_count] => 1
-            [last_klick] => 05.06.2013 15:04
+            [id] => 99
+            [title] => Die Bewerbung
+            [rating] => 6
+            [vote_count] => 2
+            [last_klick] => 05.06.2013 18:21
+            [tstamp] => 1370449275
          */
-        
-//        echo "<pre>";
-//        print_r($app);
-//        exit;
-        
     }
     catch(PDOException $e) 
     {
@@ -93,50 +90,60 @@
       </div>
 
       <!-- Example row of columns -->
-      <div class="row">
+       <div class="row">
           <div class="span8">
-              <table class="table">
-                  <thead>
-                      <th>Seitentitel</th>
-                      <th>Durschnitt</th>
-                      <th>Gesamtratings</th>
-                      <th>Letztes rating</th>
-                  </thead>
-                  <tbody>
-              <?php
-              /*
-               *             [title] => Ausbildung & Studium finanzieren
-                            [rating] => 3
-                            [vote_count] => 1
-                            [last_klick] => 05.06.2013 15:04
-               */
-              foreach ($ratings as $value) {
-                  echo '<tr>';
-                  echo '<td><a href="'.WEBSITE.'/index.php?id='.$value['id'].'" target="_blank">'.$value['title'].'</a></td>';
-                  echo '<td>'.$value['rating']/$value['vote_count'].'</td>';
-                  echo '<td>'.$value['vote_count'].'</td>';
-                  echo '<td>'.$value['last_klick'].'</td>';
-                  echo '<tr>';
-              }
-              ?>
-                  </tbody>
-              </table>
-          </div>
-          
-<!--        <div class="span8">
-          <h2>Heading</h2>
-            <a href="#">
-                <img src="http://placehold.it/120x120" style="float:left; padding-right: 10px" class="img-rounded"/>
-            </a>  
-		<p></p>
-          <p><a class="btn" href="#">weiterlesen &raquo;</a></p>
-        </div>
+                <div class="accordion" id="accordion2">
+                    <?php
+                    foreach ($ratings as $value):
+                        if ($rating_quantitaet != $value['vote_count']):
+                            $rating_quantitaet = $value['vote_count'];
+                            $accordionID = str_replace(".", "_", $rating_quantitaet);
+                    ?>
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <h4>
+                                        <a class="accordion-toggle text-error" data-toggle="collapse" data-parent="#accordion2" href="#collapse<?=$accordionID; ?>">
+                                        Ratings mit <?=$rating_quantitaet ?> Bewertungen</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse<?=$accordionID; ?>" class="accordion-body collapse">
+                                    <div class="accordion-inner">              
 
-        <div class="span4">
-          <h2>Heading</h2>
-          <p></p>
-          <p><a class="btn" href="#">weiterlesen &raquo;</a></p>
-        </div>-->
+                                        <table class="table">
+                                          <thead>
+                                              <th>Seitentitel</th>
+                                              <th>Durschnitt</th>
+                                              <th>Gesamtratings</th>
+                                              <th>Letztes rating</th>
+                                          </thead>
+                                          <tbody>
+                                        <?php
+                                        foreach ($ratings as $value):
+                                            if ($rating_quantitaet == $value['vote_count']):
+                                                echo '<tr>';
+                                                echo '<td><a href="'.WEBSITE.'/index.php?id='.$value['id'].'" target="_blank">'.$value['title'].'</a></td>';
+                                                echo '<td>'.sprintf("%01.1f", ($value['rating']/$value['vote_count'])).'</td>';
+                                                echo '<td>'.$value['vote_count'].'</td>';
+                                                echo '<td>'.$value['last_klick'].'</td>';
+                                                echo '<tr>';
+                                            endif;
+                                        endforeach;;
+
+                                        ?>
+                                          </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div><!-- Ende accrdion group  -->
+                        <?php
+                        endif;
+                        endforeach;
+                    ?>
+                </div><!-- Ende accordion -->
+            </div><!-- Ende span8 -->                            
+          
+          
+
       </div>
 
       <hr>

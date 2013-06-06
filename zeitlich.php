@@ -122,7 +122,7 @@
                                   if ($value['tstamp'] > $gestern){
                                       echo '<tr>';
                                       echo '<td><a href="'.WEBSITE.'/index.php?id='.$value['id'].'" target="_blank">'.$value['title'].'</a></td>';
-                                      echo '<td>'.$value['rating']/$value['vote_count'].'</td>';
+                                      echo '<td>'.sprintf("%01.1f", ($value['rating']/$value['vote_count'])).'</td>';
                                       echo '<td>'.$value['vote_count'].'</td>';
                                       echo '<td>'.$value['last_klick'].'</td>';
                                       echo '<tr>';
@@ -158,7 +158,7 @@
                                   if ($value['tstamp'] > $vorgestern AND $value['tstamp'] < $gestern){
                                       echo '<tr>';
                                       echo '<td><a href="'.WEBSITE.'/index.php?id='.$value['id'].'" target="_blank">'.$value['title'].'</a></td>';
-                                      echo '<td>'.$value['rating']/$value['vote_count'].'</td>';
+                                      echo '<td>'.sprintf("%01.1f", (sprintf("%01.1f", ($value['rating']/$value['vote_count'])))).'</td>';
                                       echo '<td>'.$value['vote_count'].'</td>';
                                       echo '<td>'.$value['last_klick'].'</td>';
                                       echo '<tr>';
@@ -194,7 +194,7 @@
                                   if ($value['tstamp'] > $letzteWoche AND $value['tstamp'] < $vorgestern){
                                       echo '<tr>';
                                       echo '<td><a href="'.WEBSITE.'/index.php?id='.$value['id'].'" target="_blank">'.$value['title'].'</a></td>';
-                                      echo '<td>'.$value['rating']/$value['vote_count'].'</td>';
+                                      echo '<td>'.sprintf("%01.1f", ($value['rating']/$value['vote_count'])).'</td>';
                                       echo '<td>'.$value['vote_count'].'</td>';
                                       echo '<td>'.$value['last_klick'].'</td>';
                                       echo '<tr>';
@@ -230,7 +230,7 @@
                                   if ($value['tstamp'] < $letzteWoche){
                                       echo '<tr>';
                                       echo '<td><a href="'.WEBSITE.'/index.php?id='.$value['id'].'" target="_blank">'.$value['title'].'</a></td>';
-                                      echo '<td>'.$value['rating']/$value['vote_count'].'</td>';
+                                      echo '<td>'.sprintf("%01.1f", ($value['rating']/$value['vote_count'])).'</td>';
                                       echo '<td>'.$value['vote_count'].'</td>';
                                       echo '<td>'.$value['last_klick'].'</td>';
                                       echo '<tr>';
