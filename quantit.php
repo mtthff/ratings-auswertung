@@ -72,7 +72,6 @@
               <li><a href="index.php">Qualitativ</a></li>
               <li class="active"><a href="#">Quantitativ</a></li>
               <li><a href="zeitlich.php">Zeitlich</a></li>
-              <!--<li><a href="about.php">About</a></li>-->			  
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -84,9 +83,7 @@
       <!-- Oberste marketing Botschaft -->
       <div class="page-header">
         <h3>Auswertung - quantitativ</h3>
-<!--        <p></p>
-        <p><a href="#" class="btn btn-primary btn-large">weiterlesen &raquo;</a></p>-->
-
+        <p>Bisher wurden <?=count($ratings) ?> Artikel bewertet.</p>
       </div>
 
       <!-- Example row of columns -->
@@ -142,7 +139,16 @@
                 </div><!-- Ende accordion -->
             </div><!-- Ende span8 -->                            
           
-          
+            <div class="span1"></div>
+            <div class="span3">
+                <h3>Hilfe</h3>
+                <p>
+                    Die Daten werden nach ihrer Häufigkeit der Votings gefiltert. Die Artikel mit den meisten Bewertungen stehen oben.<br />
+                    <br />
+                    Bisher nicht bewertete Artikel werden nicht dargestellt.
+                </p>
+
+            </div>          
 
       </div>
 

@@ -7,7 +7,7 @@
         $STH = $DBH->query('SELECT SUBSTR(r.reference,7) AS id, p.title, r.rating, r.vote_count, DATE_FORMAT(FROM_UNIXTIME(r.tstamp), "%d.%m.%Y %H:%i") AS last_klick, r.tstamp
                             FROM tx_ratings_data AS r
                             LEFT JOIN pages AS p ON (SUBSTR(r.reference,7) = p.uid)
-                            ORDER BY r.tstamp DESC');
+                            ORDER BY r.tstamp DESC, r.rating/r.vote_count DESC, r.vote_count DESC');
 
         $STH->setFetchMode(PDO::FETCH_ASSOC);
         while($row = $STH->fetch()){
@@ -90,9 +90,7 @@
       <!-- Oberste marketing Botschaft -->
       <div class="page-header">
         <h3>Auswertung - zeitlich</h3>
-<!--        <p></p>
-        <p><a href="#" class="btn btn-primary btn-large">weiterlesen &raquo;</a></p>-->
-
+        <p>Bisher wurden <?=count($ratings) ?> Artikel bewertet.</p>
       </div>
 
         <div class="row">
@@ -251,7 +249,10 @@
                 <p>
                     Die Daten werden nach dem Datum des letzten ratings gefiltert.<br />
                     Sehr aktuelle ratings werden gesondert dargestellt, äktere dafür eher gesammelt.<br />
+                    <br />
+                    Bisher nicht bewertete Artikel werden nicht dargestellt.
                 </p>
+                <hr />
                 <p class="text-success">
                     ::TODO::<br />Eingabe eines individuellen Datums (Suche)
                 </p>
