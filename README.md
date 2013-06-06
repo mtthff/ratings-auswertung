@@ -5,7 +5,13 @@ Ein Tool, um die Ergebnisse der Typo-Extension tt_rating (http://typo3.org/exten
 
 Die Daten werden qualitativ, quantitativ und zeitlichen, also nach dem zeitpunkt der letzten Bewertung sortiert.
 
-Voraussetzungen:
+Screenshots
+---
+![Qualitative Darstellung](https://raw.github.com/mtthff/tt_ratings-auswertung/master/dok/tt-ratings%20Auswertung-qualitaet.png)
+![Zeitliche Darstellung](https://raw.github.com/mtthff/tt_ratings-auswertung/master/dok/tt-ratings%20Auswertung-zeitlich.png)
+![Quantitative Darstellung](https://raw.github.com/mtthff/tt_ratings-auswertung/master/dok/tt-ratings%20Auswertung.png)
+
+Voraussetzungen
 ---
 php5.4 mit PDO
  
