@@ -1,5 +1,6 @@
 <?php
-print_r($_POST);
+//$uname = $_POST['be_user'];
+//$pw = md5($_POST['password']);
 
     require_once 'config.php';
     
@@ -7,8 +8,12 @@ print_r($_POST);
         $DBH= new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPW);
         $DBH->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);// ::TODO:: change it befor productive
         
-        $STH = $DBH->prepare('SELECT uid, username, password FROM be_users WHERE disable = 0');
-        $STH->execute();
+        $STH = $DBH->prepare("SELECT uid FROM be_users WHERE username = :be_user AND password = :password");
+        $STH->bindParam(':be_user', $be_user);
+        $STH->bindParam(':password', $password);
+        $_POST['password'] = md5($_POST['password']);
+        $STH->execute($_POST);
+        
         $be_users = $STH->fetchAll();
 
         /*            
@@ -21,7 +26,9 @@ print_r($_POST);
     {
         echo $e->getMessage();
     }
-    
+
+    if ($be_users[0]) echo "login erfolgt";
+    else echo "Zugangsdaten falsch";
 ?>
 
 <!DOCTYPE html>
