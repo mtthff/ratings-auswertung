@@ -1,34 +1,33 @@
 <?php
-//$uname = $_POST['be_user'];
-//$pw = md5($_POST['password']);
 
-    require_once 'config.php';
-    
-    try {
-        $DBH= new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPW);
-        $DBH->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);// ::TODO:: change it befor productive
-        
-        $STH = $DBH->prepare("SELECT uid FROM be_users WHERE username = :be_user AND password = :password");
-        $STH->bindParam(':be_user', $be_user);
-        $STH->bindParam(':password', $password);
-        $_POST['password'] = md5($_POST['password']);
-        $STH->execute($_POST);
-        
-        $be_users = $STH->fetchAll();
+    if($_POST){
+        require_once 'config.php';
 
-        /*            
-            [uid] => 1
-            [username] => matthias
-            [password] => ???
-         */
+        try {
+            $DBH= new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPW);
+            $DBH->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);// ::TODO:: change it befor productive
+
+            $STH = $DBH->prepare("SELECT uid FROM be_users WHERE username = :be_user AND password = :password");
+            $STH->bindParam(':be_user', $be_user);
+            $STH->bindParam(':password', $password);
+            $_POST['password'] = md5($_POST['password']);
+            $STH->execute($_POST);
+
+            $be_user_uid = $STH->fetch();
+        }
+        catch(PDOException $e) 
+        {
+            echo $e->getMessage();
+        }
+
+        if ($be_user_uid['uid']){
+            session_start();
+            $_SESSION['uid'] = $be_user_uid['uid'];
+            header('Location: qualit.php');
+            exit;
+        }
+        else echo "Zugangsdaten falsch";
     }
-    catch(PDOException $e) 
-    {
-        echo $e->getMessage();
-    }
-
-    if ($be_users[0]) echo "login erfolgt";
-    else echo "Zugangsdaten falsch";
 ?>
 
 <!DOCTYPE html>

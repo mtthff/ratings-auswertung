@@ -1,4 +1,10 @@
 <?php
+    session_start();
+    if(!$_SESSION['uid']){
+        header('Location: index.php');
+        exit;
+    }
+
     require_once 'config.php';
     
     try {
@@ -70,7 +76,7 @@
               <li class="active"><a href="qualit.php">Qualitativ</a></li>
               <li><a href="quantit.php">Quantitativ</a></li>
               <li><a href="zeitlich.php">Zeitlich</a></li>
-              <!--<li><a href="about.php">About</a></li>-->			  
+              <li><a href="logout.php">logout</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
