@@ -2,7 +2,7 @@
 
     if($_POST){
         require_once 'config.php';
-
+        
         try {
             $DBH= new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPW);
             $DBH->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);// ::TODO:: change it befor productive
