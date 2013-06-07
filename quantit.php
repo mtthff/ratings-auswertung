@@ -4,15 +4,13 @@
     try {
         $DBH= new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPW);
         $DBH->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);// ::TODO:: change it befor productive
-        $STH = $DBH->query('SELECT SUBSTR(r.reference,7) AS id, p.title, r.rating, r.vote_count, DATE_FORMAT(FROM_UNIXTIME(r.tstamp), "%d.%m.%Y %H:%i") AS last_klick
+        
+        $STH = $DBH->prepare('SELECT SUBSTR(r.reference,7) AS id, p.title, r.rating, r.vote_count, DATE_FORMAT(FROM_UNIXTIME(r.tstamp), "%d.%m.%Y %H:%i") AS last_klick
                             FROM tx_ratings_data AS r
                             LEFT JOIN pages AS p ON (SUBSTR(r.reference,7) = p.uid)
                             ORDER BY r.vote_count DESC');
-
-        $STH->setFetchMode(PDO::FETCH_ASSOC);
-        while($row = $STH->fetch()){
-            $ratings[]= $row;
-        }
+        $STH->execute();
+        $ratings = $STH->fetchAll();
         /*            
             [id] => 99
             [title] => Die Bewerbung
