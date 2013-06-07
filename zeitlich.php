@@ -67,7 +67,7 @@
 
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="index.php">Qualitativ</a></li>
+              <li><a href="qualit.php">Qualitativ</a></li>
               <li><a href="quantit.php">Quantitativ</a></li>
               <li class="active"><a href="#">Zeitlich</a></li>
               <!--<li><a href="about.php">About</a></li>-->			  

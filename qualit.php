@@ -8,9 +8,10 @@
         $STH = $DBH->prepare('SELECT SUBSTR(r.reference,7) AS id, p.title, r.rating, r.vote_count, DATE_FORMAT(FROM_UNIXTIME(r.tstamp), "%d.%m.%Y %H:%i") AS last_klick
                             FROM tx_ratings_data AS r
                             LEFT JOIN pages AS p ON (SUBSTR(r.reference,7) = p.uid)
-                            ORDER BY r.vote_count DESC');
+                            ORDER BY r.rating/r.vote_count DESC, r.vote_count DESC');
         $STH->execute();
         $ratings = $STH->fetchAll();
+
         /*            
             [id] => 99
             [title] => Die Bewerbung
@@ -24,7 +25,6 @@
     {
         echo $e->getMessage();
     }
-    
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -67,9 +67,10 @@
 
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="qualit.php">Qualitativ</a></li>
-              <li class="active"><a href="#">Quantitativ</a></li>
+              <li class="active"><a href="qualit.php">Qualitativ</a></li>
+              <li><a href="quantit.php">Quantitativ</a></li>
               <li><a href="zeitlich.php">Zeitlich</a></li>
+              <!--<li><a href="about.php">About</a></li>-->			  
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -80,25 +81,24 @@
 
       <!-- Oberste marketing Botschaft -->
       <div class="page-header">
-        <h3>Auswertung - quantitativ</h3>
+        <h3>Auswertung - qualitativ</h3>
         <p>Bisher wurden <?=count($ratings) ?> Artikel bewertet.</p>
       </div>
 
-      <!-- Example row of columns -->
-       <div class="row">
+      <div class="row">
           <div class="span8">
                 <div class="accordion" id="accordion2">
                     <?php
                     foreach ($ratings as $value):
-                        if ($rating_quantitaet != $value['vote_count']):
-                            $rating_quantitaet = $value['vote_count'];
-                            $accordionID = str_replace(".", "_", $rating_quantitaet);
+                        if ($rating_qualitaet != round($value['rating']/$value['vote_count'],1)):
+                            $rating_qualitaet = round($value['rating']/$value['vote_count'],1);
+                            $accordionID = str_replace(".", "_", $rating_qualitaet);
                     ?>
                             <div class="accordion-group">
                                 <div class="accordion-heading">
                                     <h4>
                                         <a class="accordion-toggle text-error" data-toggle="collapse" data-parent="#accordion2" href="#collapse<?=$accordionID; ?>">
-                                        Ratings mit <?=$rating_quantitaet ?> Bewertungen</a>
+                                        Ratings mit <?= sprintf("%01.1f", $rating_qualitaet) ?> Punkten</a>
                                     </h4>
                                 </div>
                                 <div id="collapse<?=$accordionID; ?>" class="accordion-body collapse">
@@ -114,10 +114,11 @@
                                           <tbody>
                                         <?php
                                         foreach ($ratings as $value):
-                                            if ($rating_quantitaet == $value['vote_count']):
+                                            if ($rating_qualitaet == round($value['rating']/$value['vote_count'],1)):
                                                 echo '<tr>';
                                                 echo '<td><a href="'.WEBSITE.'/index.php?id='.$value['id'].'" target="_blank">'.$value['title'].'</a></td>';
-                                                echo '<td>'.sprintf("%01.1f", ($value['rating']/$value['vote_count'])).'</td>';
+//                                                echo '<td>'.sprintf("%01.1f", ($value['rating']/$value['vote_count'])).'</td>';
+                                                echo '<td>'.sprintf("%01.1f", round($value['rating']/$value['vote_count'],1)).'</td>';
                                                 echo '<td>'.$value['vote_count'].'</td>';
                                                 echo '<td>'.$value['last_klick'].'</td>';
                                                 echo '<tr>';
@@ -141,12 +142,12 @@
             <div class="span3">
                 <h3>Hilfe</h3>
                 <p>
-                    Die Daten werden nach ihrer Häufigkeit der Votings gefiltert. Die Artikel mit den meisten Bewertungen stehen oben.<br />
+                    Die Daten werden nach ihrer Häufigkeit der Votings gefiltert.<br />
+                    Nachkommastellen werden wegen der beseren Lesbarkeit auf eine Stelle hiner dem Komma gekürtzt und ggf. zusammengefasst. Gibt es mehrere Artikel mit gleicher Punktzahl , so werden die Artikel, die mehr Bewertungen haben weiter oben angezeigt.<br />
                     <br />
                     Bisher nicht bewertete Artikel werden nicht dargestellt.
                 </p>
-
-            </div>          
+            </div>
 
       </div>
 
