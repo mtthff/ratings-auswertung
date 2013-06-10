@@ -3,13 +3,15 @@ TT-ratings Auswertung V 0.1
 
 Ein Tool, um die Ergebnisse der Typo-Extension tt_rating (http://typo3.org/extensions/repository/view/tt_rating) auszuwerten.
 
-Die Daten werden qualitativ, quantitativ und zeitlichen, also nach dem zeitpunkt der letzten Bewertung sortiert.
+Die Daten werden qualitativ, quantitativ und zeitlichen, also nach dem Zeitpunkt der letzten Bewertung sortiert.
+
+Über Rückmeldung und Kritik würde ich mich freue.
 
 Screenshots
 ---
-![Qualitative Darstellung](https://raw.github.com/mtthff/tt_ratings-auswertung/master/dok/tt-ratings%20Auswertung-qualitaet.png)
-![Zeitliche Darstellung](https://raw.github.com/mtthff/tt_ratings-auswertung/master/dok/tt-ratings%20Auswertung-zeitlich.png)
-![Quantitative Darstellung](https://raw.github.com/mtthff/tt_ratings-auswertung/master/dok/tt-ratings%20Auswertung.png)
+![Qualitative Darstellung](https://raw.github.com/mtthff/tt_ratings-auswertung/master/dok/tt-ratings_Auswertung-zeitlich.png)
+![Zeitliche Darstellung](https://raw.github.com/mtthff/tt_ratings-auswertung/master/dok/tt-ratings_Auswertung-zeitlich.png)
+![Quantitative Darstellung](https://raw.github.com/mtthff/tt_ratings-auswertung/master/dok/tt-ratings_Auswertung.png)
 
 Voraussetzungen
 ---
@@ -29,7 +31,8 @@ Installatiion
 
 ::TODO::
 ---
-Eingabe eines individuellen Datums (Suche)
+- Eingabe eines individuellen Datums (Suche)
+- English translation
  
 Framwork:
 ---
