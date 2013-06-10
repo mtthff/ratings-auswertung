@@ -21,7 +21,7 @@ Getestet mit:
 ---
 typo3 V 4.5.27 und tt_rating V 2.0.1
 
-Installatiion
+Installation
 ---
 - Alles außer dok/ und README.md auf den Webserver auf dem typo3 läuft in ein separates Verzeichnis (nicht unter typo3/)aufspielen.
 - config.default.php anpassen und als config.php speichern.
