@@ -77,6 +77,7 @@
               <li class="active"><a href="#">Quantitativ</a></li>
               <li><a href="zeitlich.php">Zeitlich</a></li>
             </ul>
+            <a href="logout.php" class="btn btn-primary pull-right">Sign out</a>
           </div><!--/.nav-collapse -->
         </div>
       </div>

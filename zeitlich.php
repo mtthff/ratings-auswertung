@@ -78,6 +78,7 @@
               <li class="active"><a href="#">Zeitlich</a></li>
               <!--<li><a href="about.php">About</a></li>-->			  
             </ul>
+            <a href="logout.php" class="btn btn-primary pull-right">Sign out</a>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -250,10 +251,7 @@
                     <br />
                     Bisher nicht bewertete Artikel werden nicht dargestellt.
                 </p>
-                <hr />
-                <p class="text-success">
-                    ::TODO::<br />Eingabe eines individuellen Datums (Suche)
-                </p>
+
             </div>
             
         </div><!-- Ende row -->
