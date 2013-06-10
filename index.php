@@ -1,4 +1,10 @@
 <?php
+/**
+ * Projekt: tt-Ratings-Auswertung
+ * 
+ * @author Matthias Hoffmann <mtthff@gmail.com>
+ * @version v 0.1 2013-06-10
+ */
 
     if($_POST){
         require_once 'config.php';
@@ -95,9 +101,6 @@
       </form>
     </div> <!-- /container -->
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery-2.0.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 

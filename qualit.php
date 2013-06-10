@@ -1,4 +1,10 @@
 <?php
+/**
+ * Projekt: tt-Ratings-Auswertung
+ * 
+ * @author Matthias Hoffmann <mtthff@gmail.com>
+ * @version v 0.1 2013-06-10
+ */
     session_start();
     if(!$_SESSION['uid']){
         header('Location: index.php');
@@ -17,15 +23,6 @@
                             ORDER BY r.rating/r.vote_count DESC, r.vote_count DESC');
         $STH->execute();
         $ratings = $STH->fetchAll();
-
-        /*            
-            [id] => 99
-            [title] => Die Bewerbung
-            [rating] => 6
-            [vote_count] => 2
-            [last_klick] => 05.06.2013 18:21
-            [tstamp] => 1370449275
-         */
     }
     catch(PDOException $e) 
     {
@@ -165,9 +162,6 @@
 
     </div> <!-- /container -->
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery-2.0.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
