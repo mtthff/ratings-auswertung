@@ -158,7 +158,9 @@
       <hr>
 
       <footer>
-          <p><?php echo date("d.m.Y")?></p>
+          <p>
+            Made with <a target="_blank" href="http://getbootstrap.com">Bootstrap.</a>
+          </p>
       </footer>
 
     </div> <!-- /container -->

@@ -32,6 +32,7 @@ Installation
 ::TODO::
 ---
 - Eingabe eines individuellen Datums (Suche)
+- Rangeslider für zeitliche Darstellung 
 - English translation
  
 Framwork:

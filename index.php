@@ -99,6 +99,14 @@
         <input type="password" name="password" class="input-block-level" placeholder="Passwort">
         <button class="btn btn-large btn-primary" type="submit">Sign in</button>
       </form>
+      <hr>
+
+      <footer>
+          <p>
+            Made with <a target="_blank" href="http://getbootstrap.com">Bootstrap.</a>
+          </p>
+      </footer>
+
     </div> <!-- /container -->
 
     <script src="js/jquery-2.0.0.min.js"></script>
