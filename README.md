@@ -1,7 +1,7 @@
-TT-ratings Auswertung V 0.1
+Ratings Auswertung V 0.1
 ===
 
-Ein Tool, um die Ergebnisse der Typo-Extension tt_rating (http://typo3.org/extensions/repository/view/tt_rating) auszuwerten.
+Ein Tool, um die Ergebnisse der Typo-Extension ratings (http://typo3.org/extensions/repository/view/ratings) auszuwerten.
 
 Die Daten werden qualitativ, quantitativ und zeitlichen, also nach dem Zeitpunkt der letzten Bewertung sortiert.
 
@@ -19,7 +19,7 @@ php5.1 mit PDO
 
 Getestet mit:
 ---
-typo3 V 4.5.27 und tt_rating V 2.0.1
+typo3 V 4.5.27 und ratings V 1.0.10
 
 Installation
 ---
