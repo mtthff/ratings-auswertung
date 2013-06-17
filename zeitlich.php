@@ -17,10 +17,15 @@
         $DBH= new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPW);
         $DBH->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);// ::TODO:: change it befor productive
         
-        $STH = $DBH->prepare('SELECT SUBSTR(r.reference,7) AS id, p.title, r.rating, r.vote_count, DATE_FORMAT(FROM_UNIXTIME(r.tstamp), "%d.%m.%Y %H:%i") AS last_klick, r.tstamp
+        $STH = $DBH->prepare('SELECT r.reference AS id, p.title, r.rating, r.vote_count, DATE_FORMAT(FROM_UNIXTIME(r.tstamp), "%d.%m.%Y %H:%i") AS last_klick, r.tstamp
                             FROM tx_ratings_data AS r
                             LEFT JOIN pages AS p ON (SUBSTR(r.reference,7) = p.uid)
                             ORDER BY r.tstamp DESC, r.rating/r.vote_count DESC, r.vote_count DESC');
+//        $STH = $DBH->prepare('SELECT r.reference AS id, p.title, n.title, r.rating, r.vote_count, DATE_FORMAT(FROM_UNIXTIME(r.tstamp), "%d.%m.%Y %H:%i") AS last_klick, r.tstamp
+//                            FROM tx_ratings_data AS r
+//                            LEFT JOIN pages AS p ON (SUBSTR(r.reference,7) = p.uid)
+//                            LEFT JOIN tt_news AS n ON (SUBSTR(r.reference,9) = n.uid)
+//                            ORDER BY r.tstamp DESC, r.rating/r.vote_count DESC, r.vote_count DESC');
         $STH->execute();
         $ratings = $STH->fetchAll();
     }
@@ -29,12 +34,21 @@
         echo $e->getMessage();
     }
     
+    
+//    foreach ($ratings as $key => $value) {
+//        $ratings[$key]['id'] = getID($value['id']);
+//    }
+
+//    echo "<pre>";
+//    print_r($ratings);
+//    exit;
+    
 ?>
 <!DOCTYPE html>
 <html lang="de">
   <head>
     <meta charset="utf-8">
-    <title>tt-ratings Auswertung</title>
+    <title>ratings Auswertung</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Matthias Hoffmann">

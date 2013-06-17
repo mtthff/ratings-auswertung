@@ -23,4 +23,10 @@
      * @const WEBSITE URL der Website
      */
     define(WEBSITE, "http://meywebsite.de/");
+    
+    
+    function getID($value) {
+        return substr(strrchr($value, "_"),1);
+    }
+    
 ?>
