@@ -17,15 +17,15 @@
         $DBH= new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPW);
         $DBH->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);// ::TODO:: change it befor productive
         
-        $STH = $DBH->prepare('SELECT r.reference AS id, p.title, r.rating, r.vote_count, DATE_FORMAT(FROM_UNIXTIME(r.tstamp), "%d.%m.%Y %H:%i") AS last_klick, r.tstamp
-                            FROM tx_ratings_data AS r
-                            LEFT JOIN pages AS p ON (SUBSTR(r.reference,7) = p.uid)
-                            ORDER BY r.tstamp DESC, r.rating/r.vote_count DESC, r.vote_count DESC');
-//        $STH = $DBH->prepare('SELECT r.reference AS id, p.title, n.title, r.rating, r.vote_count, DATE_FORMAT(FROM_UNIXTIME(r.tstamp), "%d.%m.%Y %H:%i") AS last_klick, r.tstamp
+//        $STH = $DBH->prepare('SELECT r.reference AS id, p.title, r.rating, r.vote_count, DATE_FORMAT(FROM_UNIXTIME(r.tstamp), "%d.%m.%Y %H:%i") AS last_klick, r.tstamp
 //                            FROM tx_ratings_data AS r
 //                            LEFT JOIN pages AS p ON (SUBSTR(r.reference,7) = p.uid)
-//                            LEFT JOIN tt_news AS n ON (SUBSTR(r.reference,9) = n.uid)
 //                            ORDER BY r.tstamp DESC, r.rating/r.vote_count DESC, r.vote_count DESC');
+        $STH = $DBH->prepare('SELECT r.reference AS id, p.title, n.title AS titleNews, r.rating, r.vote_count, DATE_FORMAT(FROM_UNIXTIME(r.tstamp), "%d.%m.%Y %H:%i") AS last_klick, r.tstamp
+                            FROM tx_ratings_data AS r
+                            LEFT JOIN pages AS p ON (SUBSTR(r.reference,7) = p.uid)
+                            LEFT JOIN tt_news AS n ON (SUBSTR(r.reference,9) = n.uid)
+                            ORDER BY r.tstamp DESC, r.rating/r.vote_count DESC, r.vote_count DESC');
         $STH->execute();
         $ratings = $STH->fetchAll();
     }
@@ -35,12 +35,12 @@
     }
     
     
-//    foreach ($ratings as $key => $value) {
-//        $ratings[$key]['id'] = getID($value['id']);
-//    }
+    foreach ($ratings as $key => $value) {
+        $ratings[$key]['id'] = getID($value['id']);
+    }
 
-//    echo "<pre>";
-//    print_r($ratings);
+    echo "<pre>";
+    print_r($ratings);
 //    exit;
     
 ?>
@@ -129,6 +129,7 @@
                               $gestern = time()-(60*60*24);
                               foreach ($ratings as $value) {
                                   if ($value['tstamp'] > $gestern){
+                                      if ($value['title'] == '') $value['title'] = $value['titleNews'];
                                       echo '<tr>';
                                       echo '<td><a href="'.WEBSITE.'/index.php?id='.$value['id'].'" target="_blank">'.$value['title'].'</a></td>';
                                       echo '<td>'.sprintf("%01.1f", ($value['rating']/$value['vote_count'])).'</td>';
